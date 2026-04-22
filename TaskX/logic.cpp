@@ -1,38 +1,36 @@
-﻿// Task X [The last local minimum]
-// Последний локальный минимум
+﻿// Task X [The all local minimum]
+// Все локальные минимумы
 // 
 // Дана математическая прямоугольная матрица размером N на M.
 // Необходимо разработать эффективную функцию (или программу), которая 
-// находит и возвращает местоположение последнего локального минимума.
-#include "util.h"
+// находит и возвращает все локальные минимумы.
 
-string get_indexes_of_last_local_minimum(int matrix[DEFAULT_SIZE][DEFAULT_SIZE], int n, int m){
+#include "logic.h"
+
+int get_local_min_number(int matrix[DEFAULT_SIZE][DEFAULT_SIZE], int n, int m) {
+	if (matrix[n][m] < matrix[n + 1][m] && matrix[n - 1][m] && matrix[n][m + 1] && matrix[n][m - 1]) {
+		return matrix[n][m];
+	}
+
+	return -1;
+}
+
+string get_all_local_minimums(int matrix[DEFAULT_SIZE][DEFAULT_SIZE], int n, int m) {
+
 	string result = "";
 
-	if (n || m <= 0) {
-		return result + "0";
+	if (n <= 0 || m <= 0) {
+		return "";
 	}
 
-	if (n && m == 1) {
-		return result + to_string(n);
-	}
-
-	int min_index = matrix[0][0];
-
-	int t_n = 0;
-	int t_m = 0;
 
 	for (int i = 0; i < n; i++)
 	{
-		for (int j = 0; j < m; i++)
+		for (int j = 0; j < m; j++)
 		{
-			if (matrix[i][j] < min_index) {
-				min_index = matrix[i][j];
-				t_n = i;
-				t_n = m;
-			}
+			result +=to_string(get_local_min_number(matrix, i, j));
 		}
 	}
 
-	return result;
+	return "";
 }
